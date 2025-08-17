@@ -21,22 +21,31 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-  let humanChoice = prompt("What is your choice?");
+  let humanChoice = prompt("What is your choice? (rock, paper, or scissors)");
+
+  if (humanChoice === null) {
+    console.log("Input cancelled.");
+    return null;
+  }
 
   humanChoice = humanChoice.trim().toLowerCase();
 
   switch (humanChoice) {
     case "rock":
       console.log("You chose rock.");
+      humanChoice = "rock";
       break;
     case "paper":
       console.log("You chose paper.");
+      humanChoice = "paper";
       break;
     case "scissors":
       console.log("You chose scissors.");
+      humanChoice = "scissors";
       break;
     default:
-      console.log("Invalid input");
+      console.log("Invalid input.Please enter rock, paper, or scissors.");
+      humanChoice = null;
   }
   return humanChoice;
 }
