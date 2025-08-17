@@ -19,3 +19,22 @@ function getComputerChoice() {
       break;
   }
 }
+
+function getHumanChoice() {
+  const humanChoice = prompt("What is your choice?");
+
+  switch (humanChoice) {
+    case null:
+      console.log("Invalid input");
+      break;
+    case "rock":
+      console.log("You chose rock.");
+      break;
+    case "paper":
+      console.log("You chose paper.");
+      break;
+    case "scissors":
+      console.log("You chose scissors.");
+      break;
+  }
+}
