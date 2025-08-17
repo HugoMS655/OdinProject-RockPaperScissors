@@ -63,3 +63,46 @@ function getHumanChoice() {
   }
   return humanChoice;
 }
+
+/**
+ * The function `playRound` determines the winner between a human and computer choice in a
+ * rock-paper-scissors game and updates the scores accordingly.
+ * @param humanChoice - The `humanChoice` parameter represents the choice made by the human player in a
+ * round of the game. It can be one of three options: "rock", "paper", or "scissors".
+ * @param computerChoice - ComputerChoice is a variable representing the choice made by the computer in
+ * a game of rock-paper-scissors. It can be either "rock", "paper", or "scissors".
+ */
+function playRound(humanChoice, computerChoice) {
+  if (humanChoice === computerChoice) {
+    humanScore++;
+    computerScore++;
+  } else if (
+    (humanChoice === "rock" && computerChoice === "paper") ||
+    (humanChoice === "scissors" && computerChoice === "rock") ||
+    (humanChoice === "paper" && computerChoice === "scissors")
+  ) {
+    computerScore++;
+  } else {
+    humanScore++;
+  }
+}
+
+/**
+ * The function `playGame` runs a game for 5 rounds between a human player and a computer player,
+ * keeping track of scores and determining the winner at the end.
+ */
+function playGame() {
+  for (let round = 0; round < 5; round++) {
+    const humanChoice = getHumanChoice();
+    const computerChoice = getComputerChoice();
+    playRound(humanChoice, computerChoice);
+  }
+
+  if (humanScore === computerScore) {
+    console.log("It's a draw!");
+  } else if (humanScore > computerScore) {
+    console.log("You win!");
+  } else {
+    console.log("Computer has won!Try again!");
+  }
+}
