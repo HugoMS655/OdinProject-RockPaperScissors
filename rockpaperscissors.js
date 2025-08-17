@@ -72,6 +72,7 @@ function getHumanChoice() {
  * @param computerChoice - ComputerChoice is a variable representing the choice made by the computer in
  * a game of rock-paper-scissors. It can be either "rock", "paper", or "scissors".
  */
+/*NOTE: could use switch but it gets verbose so in this case i guess it's fine */
 function playRound(humanChoice, computerChoice) {
   if (humanChoice === computerChoice) {
     humanScore++;
@@ -103,6 +104,6 @@ function playGame() {
   } else if (humanScore > computerScore) {
     console.log("You win!");
   } else {
-    console.log("Computer has won!Try again!");
+    console.log("Computer has won! Try again!");
   }
 }
