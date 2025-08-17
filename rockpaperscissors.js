@@ -21,12 +21,11 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-  const humanChoice = prompt("What is your choice?");
+  let humanChoice = prompt("What is your choice?");
+
+  humanChoice = humanChoice.trim().toLowerCase();
 
   switch (humanChoice) {
-    case null:
-      console.log("Invalid input");
-      break;
     case "rock":
       console.log("You chose rock.");
       break;
@@ -36,5 +35,8 @@ function getHumanChoice() {
     case "scissors":
       console.log("You chose scissors.");
       break;
+    default:
+      console.log("Invalid input");
   }
+  return humanChoice;
 }
