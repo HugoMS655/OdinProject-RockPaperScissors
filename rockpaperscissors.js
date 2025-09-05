@@ -87,23 +87,3 @@ function playRound(humanChoice, computerChoice) {
     humanScore++;
   }
 }
-
-/**
- * The function `playGame` runs a game for 5 rounds between a human player and a computer player,
- * keeping track of scores and determining the winner at the end.
- */
-function playGame() {
-  for (let round = 0; round < 5; round++) {
-    const humanChoice = getHumanChoice();
-    const computerChoice = getComputerChoice();
-    playRound(humanChoice, computerChoice);
-  }
-
-  if (humanScore === computerScore) {
-    console.log("It's a draw!");
-  } else if (humanScore > computerScore) {
-    console.log("You win!");
-  } else {
-    console.log("Computer has won! Try again!");
-  }
-}
