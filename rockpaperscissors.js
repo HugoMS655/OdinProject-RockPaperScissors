@@ -2,15 +2,63 @@
 keep track of the scores for the human player and the computer player in a game of
 rock-paper-scissors. 
 The scores can be updated throughout the game as the players win rounds. */
-const humanScore = 0;
-const computerScore = 0;
+let humanScore = 0;
+let computerScore = 0;
+
+/* 
+getting buttons
+getting html elements that represent the scores so that 
+the display can be updated */
+const gameButtons = document.querySelectorAll("button");
+const hscore = document.querySelector("#playerscore");
+const cscore = document.querySelector("#computerscore");
+
+/*adding event listeners to buttons. */
+gameButtons.forEach((button) => {
+  button.addEventListener("click", () => playRound(button.getAttribute("id")));
+});
 
 /**
- * The function `getComputerChoice` generates a random choice of "rock", "paper", or "scissors" for the
- * computer using a random number between 1 and 3 for the three choices
+ * The playRound function determines the outcome of a round in a rock-paper-scissors game and updates
+ * the scores accordingly.
+ * @param buttonId - The `buttonId` parameter in the `playRound` function represents the id of the
+ * button that the player clicked to make their choice in a rock-paper-scissors game. This id is used
+ * to determine the human player's choice in the game.
+ */
+function playRound(buttonId) {
+  const humanChoice = getHumanChoice(buttonId);
+  const computerChoice = getComputerChoice();
+
+  if (humanChoice === computerChoice) {
+    humanScore++;
+    computerScore++;
+    changeDisplayedComputerScore();
+    changeDisplayedPlayerScore();
+  } else if (
+    (humanChoice === "rock" && computerChoice === "paper") ||
+    (humanChoice === "scissors" && computerChoice === "rock") ||
+    (humanChoice === "paper" && computerChoice === "scissors")
+  ) {
+    computerScore++;
+    changeDisplayedComputerScore();
+  } else {
+    humanScore++;
+    changeDisplayedPlayerScore();
+  }
+
+  if (humanScore === 5) {
+    console.log("You win!");
+  } else if (computerScore === 5) {
+    console.log("Computer Wins!");
+  }
+}
+
+/**
+ * The function generates a random choice of "rock", "paper", or "scissors" for the
+ * computer using a random number between 1 and 3 for the three choices.
  */
 function getComputerChoice() {
-  const computerChoice = "";
+  let computerChoice = "";
   const randomNumber = Math.floor(Math.random() * 3) + 1;
   switch (randomNumber) {
     case 1:
@@ -25,65 +73,36 @@ function getComputerChoice() {
       computerChoice = "scissors";
       break;
   }
+  return computerChoice;
 }
 
 /**
- * The function `getHumanChoice` prompts the user to input their choice of "rock", "paper", or
- * "scissors", validates the input, and returns the sanitized choice.
- * @returns The function `getHumanChoice()` returns the human's choice of "rock", "paper", or
- * "scissors" after validating and processing the input provided by the user. If the input is invalid
- * or if the user cancels the input prompt, the function returns `null`.
+ * The function takes a button ID as input and based on the
+ * button clicked returns the corresponding human choice
+ * (rock, paper, or scissors).
  */
-function getHumanChoice() {
-  let humanChoice = prompt("What is your choice? (rock, paper, or scissors)");
-
-  if (humanChoice === null) {
-    console.log("Input cancelled.");
-    return null;
-  }
-
-  humanChoice = humanChoice.trim().toLowerCase();
-
-  switch (humanChoice) {
+function getHumanChoice(buttonId) {
+  let choice = "";
+  switch (buttonId) {
     case "rock":
-      console.log("You chose rock.");
-      humanChoice = "rock";
+      choice = "rock";
       break;
     case "paper":
-      console.log("You chose paper.");
-      humanChoice = "paper";
+      choice = "paper";
       break;
     case "scissors":
-      console.log("You chose scissors.");
-      humanChoice = "scissors";
+      choice = "scissors";
       break;
     default:
-      console.log("Invalid input.Please enter rock, paper, or scissors.");
-      humanChoice = null;
+      choice = null;
   }
-  return humanChoice;
+  return choice;
 }
 
-/**
- * The function `playRound` determines the winner between a human and computer choice in a
- * rock-paper-scissors game and updates the scores accordingly.
- * @param humanChoice - The `humanChoice` parameter represents the choice made by the human player in a
- * round of the game. It can be one of three options: "rock", "paper", or "scissors".
- * @param computerChoice - ComputerChoice is a variable representing the choice made by the computer in
- * a game of rock-paper-scissors. It can be either "rock", "paper", or "scissors".
- */
-/*NOTE: could use switch but it gets verbose so in this case i guess it's fine */
-function playRound(humanChoice, computerChoice) {
-  if (humanChoice === computerChoice) {
-    humanScore++;
-    computerScore++;
-  } else if (
-    (humanChoice === "rock" && computerChoice === "paper") ||
-    (humanChoice === "scissors" && computerChoice === "rock") ||
-    (humanChoice === "paper" && computerChoice === "scissors")
-  ) {
-    computerScore++;
-  } else {
-    humanScore++;
-  }
+function changeDisplayedComputerScore() {
+  cscore.textContent = computerScore;
+}
+
+function changeDisplayedPlayerScore() {
+  hscore.textContent = humanScore;
 }
